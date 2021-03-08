@@ -34,5 +34,5 @@ runs:
           --localSchemaFile=${{ inputs.localSchemaFile }} \
           --key=${{ inputs.key }} \
           --variant=${{ inputs.variant }} \
-          --serviceName=${{ inputs.serviceName }}
-          --serviceURL=${{ inputs.serviceURL }}
+          --serviceName=${{ inputs.serviceName }} \
+          [[ ${{ inputs.action }} = service:push ]] && --serviceURL=${{ inputs.serviceURL }} || ''
