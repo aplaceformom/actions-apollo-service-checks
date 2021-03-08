@@ -12,7 +12,7 @@ localSchemaFile: path to .graphql file
 key: apollo key
 variant: current env
 serviceName: name of service
-serviceURL: url of deployed running service
+serviceURL: url of deployed running service (only required for service:push action)
 ```
 
 Usage:
@@ -34,7 +34,6 @@ steps:
       key: ${{ steps.set-env-vars.outputs.APOLLO_KEY }}
       variant: ${{ steps.set-env-vars.outputs.APP_ENV J}}
       serviceName: my-service
-      serviceURL: https://my-service.internal.${{ steps.set-env-vars.outputs.APP_ENV }}.aplaceformom.com/graphql
 
   - name: Push schema
     uses: aplaceformom/actions-apollo-service-checks@main
