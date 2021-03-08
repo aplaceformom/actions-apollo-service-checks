@@ -1,0 +1,37 @@
+name: Apollo schema checks
+
+inputs:
+  action:
+    required: true
+  localSchemaFile:
+    required: true
+  key:
+    required: true
+  variant:
+    required: true
+  serviceName:
+    required: true
+  serviceURL:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+    - run: |
+        npm i --production=false
+        npm run codegen
+        if [[ -z "$(git status --porcelain)" ]]; then
+          echo "Codegen is up to date, all types and schemas validated."
+        else
+          echo "Ran codegen and found changes! Exiting."
+          git status
+          exit 1
+        fi
+    - run: |
+      npx apollo@2.32.5 ${{ inputs.action }} \
+        --localSchemaFile=${{ inputs.localSchemaFile }} \
+        --key=${{ inputs.key }} \
+        --variant=${{ inputs.variant }} \
+        --serviceName=${{ inputs.serviceName }}
+        --serviceURL=${{ inputs.serviceURL }}
