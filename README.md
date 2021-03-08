@@ -1,4 +1,4 @@
-# actions-apollo-schema-checks
+# actions-apollo-service-checks
 
 Runs codegen, verifies that no files are changed (git status is clean)
 

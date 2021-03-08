@@ -1,4 +1,4 @@
-name: Apollo schema checks
+name: Apollo service checks
 
 inputs:
   action:
