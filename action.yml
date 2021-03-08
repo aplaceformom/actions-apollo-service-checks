@@ -17,7 +17,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: |
+    - shell: bash
+      run: |
         npm run codegen
         if [[ -z "$(git status --porcelain)" ]]; then
           echo "Codegen is up to date, all types and schemas validated."
@@ -26,10 +27,12 @@ runs:
           git status
           exit 1
         fi
-    - run: |
-      npx apollo@2.32.5 ${{ inputs.action }} \
-        --localSchemaFile=${{ inputs.localSchemaFile }} \
-        --key=${{ inputs.key }} \
-        --variant=${{ inputs.variant }} \
-        --serviceName=${{ inputs.serviceName }}
-        --serviceURL=${{ inputs.serviceURL }}
+
+    - shell: bash
+      run: |
+        npx apollo@2.32.5 ${{ inputs.action }} \
+          --localSchemaFile=${{ inputs.localSchemaFile }} \
+          --key=${{ inputs.key }} \
+          --variant=${{ inputs.variant }} \
+          --serviceName=${{ inputs.serviceName }}
+          --serviceURL=${{ inputs.serviceURL }}
