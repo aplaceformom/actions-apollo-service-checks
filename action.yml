@@ -30,9 +30,20 @@ runs:
 
     - shell: bash
       run: |
-        npx apollo@2.32.5 ${{ inputs.action }} \
-          --localSchemaFile=${{ inputs.localSchemaFile }} \
-          --key=${{ inputs.key }} \
-          --variant=${{ inputs.variant }} \
-          --serviceName=${{ inputs.serviceName }} \
-          [[ ${{ inputs.action }} = service:push ]] && --serviceURL=${{ inputs.serviceURL }} || ''
+        if [[ ${{ inputs.action }} = service:push ]]; then
+          npx apollo@2.32.5 ${{ inputs.action }} \
+            --localSchemaFile=${{ inputs.localSchemaFile }} \
+            --key=${{ inputs.key }} \
+            --variant=${{ inputs.variant }} \
+            --serviceName=${{ inputs.serviceName }}
+        elif [[ ${{ inputs.action }} = service:check ]]; then
+          npx apollo@2.32.5 ${{ inputs.action }} \
+            --localSchemaFile=${{ inputs.localSchemaFile }} \
+            --key=${{ inputs.key }} \
+            --variant=${{ inputs.variant }} \
+            --serviceName=${{ inputs.serviceName }} \
+            --serviceURL=${{ inputs.serviceURL }}
+        else
+          echo "Must specify an action of 'service:push' or 'service:check', found '${{ inputs.action }}'. Exiting."
+          exit 1
+        fi
