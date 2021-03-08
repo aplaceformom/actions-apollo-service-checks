@@ -27,7 +27,7 @@ steps:
     id: set-env-vars
 
   - name: Check schema
-    uses: aplaceformom/actions-apollo-schema-checks@main
+    uses: aplaceformom/actions-apollo-service-checks@main
     with:
       action: service:check
       localSchemaFile: src/schema.graphql
@@ -37,7 +37,7 @@ steps:
       serviceURL: https://my-service.internal.${{ steps.set-env-vars.outputs.APP_ENV }}.aplaceformom.com/graphql
 
   - name: Push schema
-    uses: aplaceformom/actions-apollo-schema-checks@main
+    uses: aplaceformom/actions-apollo-service-checks@main
     with:
       action: service:push
       localSchemaFile: src/schema.graphql
