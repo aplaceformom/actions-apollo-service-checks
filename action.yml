@@ -13,14 +13,20 @@ inputs:
     required: true
   serviceURL:
     required: false
+  codegenGitStatusPaths:
+    required: false
+    default: ''
+  codegenScript:
+    required: false
+    default: 'npm run codegen'
 
 runs:
   using: composite
   steps:
     - shell: bash
       run: |
-        npm run codegen
-        if [[ -z "$(git status --porcelain)" ]]; then
+        ${{ inputs.codegenScript }}
+        if [[ -z "$(git status ${{ inputs.codegenGitStatusPaths }} --porcelain)" ]]; then
           echo "Codegen is up to date, all types and schemas validated."
         else
           echo "Ran codegen and found changes! Exiting."
