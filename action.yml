@@ -25,13 +25,15 @@ runs:
   steps:
     - shell: bash
       run: |
-        ${{ inputs.codegenScript }}
-        if [[ -z "$(git status ${{ inputs.codegenGitStatusPaths }} --porcelain)" ]]; then
-          echo "Codegen is up to date, all types and schemas validated."
-        else
-          echo "Ran codegen and found changes! Exiting."
-          git status
-          exit 1
+        if [[ ${{ inputs.action }} = service:check ]]; then
+          ${{ inputs.codegenScript }}
+          if [[ -z "$(git status ${{ inputs.codegenGitStatusPaths }} --porcelain)" ]]; then
+            echo "Codegen is up to date, all types and schemas validated."
+          else
+            echo "Ran codegen and found changes! Exiting."
+            git status
+            exit 1
+          fi
         fi
 
     - shell: bash
