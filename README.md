@@ -13,6 +13,7 @@ key: apollo key
 variant: current env
 serviceName: name of service
 serviceURL: url of deployed running service (only required for service:push action)
+graphName: name of the graph (default: 'apfm-hydra')
 
 codegenScript: script used to run codegen. default: npm run codegen
 codegenGitStatusPaths: this action will run 'git status ${codegenGitStatusPaths}' and fail on any file changes. default: ''
