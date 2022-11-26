@@ -12,7 +12,7 @@ inputs:
   serviceName:
     required: true
   serviceURL:
-    required: true
+    required: false
   codegenGitStatusPaths:
     required: false
     default: ''
