@@ -43,7 +43,7 @@ runs:
       run: |
         if [[ ${{ inputs.action }} = service:check ]]; then
           APOLLO_KEY=${{ inputs.key }} npx @apollo/rover@0.10.0 subgraph check ${{ inputs.graphName }}@${{ inputs.variant }} \
-            --name=${{ inputs.serviceName }}
+            --name=${{ inputs.serviceName }} \
             --schema=${{ inputs.localSchemaFile }}
 
         elif [[ ${{ inputs.action }} = service:push ]]; then
